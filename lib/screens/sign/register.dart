@@ -95,6 +95,11 @@ class _MyRegisterPageState extends State<MyRegisterPage> {
                       builder: (context) => MyLoginPage(),
                     ),
                   );
+                  SnackBar(
+                    content: Text('Account created successfully'),
+                    backgroundColor: Colors.green,
+                    duration: Duration(seconds: 2),
+                  );
                 },
                 child: Text('OK'),
               ),
@@ -113,6 +118,13 @@ class _MyRegisterPageState extends State<MyRegisterPage> {
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Registration failed'),
+                      backgroundColor: Colors.red,
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
                 },
                 child: Text('OK'),
               ),
@@ -126,6 +138,7 @@ class _MyRegisterPageState extends State<MyRegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -147,6 +160,8 @@ class _MyRegisterPageState extends State<MyRegisterPage> {
                 child: TextFormField(
                   controller: _username,
                   decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -174,6 +189,8 @@ class _MyRegisterPageState extends State<MyRegisterPage> {
                   controller: _password,
                   obscureText: obscureText,
                   decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -212,6 +229,8 @@ class _MyRegisterPageState extends State<MyRegisterPage> {
                   controller: _confirmPassword,
                   obscureText: obscureText2,
                   decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -258,6 +277,16 @@ class _MyRegisterPageState extends State<MyRegisterPage> {
                     ),
                     onPressed: () {
                       register();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Account created successfully'),
+                          backgroundColor: Colors.green,
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                      _username.clear();
+                      _password.clear();
+                      _confirmPassword.clear();
                     },
                     child: Text(
                       'REGISTER',

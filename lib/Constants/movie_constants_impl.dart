@@ -1,4 +1,5 @@
-//page and result
+import 'dart:math';
+
 class MovieResponseModel {
   MovieResponseModel({
     required this.page,
@@ -34,6 +35,8 @@ class MovieConstantsImpl {
   double? voteAverage;
   bool? video;
   int? voteCount;
+  bool wishlist = false;
+  double? price;
 
   MovieConstantsImpl({
     required this.id,
@@ -47,10 +50,15 @@ class MovieConstantsImpl {
     required this.voteAverage,
     required this.video,
     required this.voteCount,
-  });
+    required this.price,
+  }) {
+    final random = Random();
+    price = random.nextInt(100).toDouble();
+  }
 
   factory MovieConstantsImpl.fromJson(Map<String, dynamic> json) {
     return MovieConstantsImpl(
+      price: json['price']?.toDouble(),
       id: json['id'] as int?,
       title: json['title'] as String?,
       genreIds: json['genre_ids'] != null
@@ -81,6 +89,7 @@ class MovieConstantsImpl {
       'vote_average': voteAverage,
       'video': video,
       'vote_count': voteCount,
+      'price': price,
     };
   }
 }

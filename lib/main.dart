@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:movie_app/Database/wishlistMovie.dart';
 import 'package:movie_app/screens/sign/login.dart';
 
-void main() {
+String favoriteMovies = 'favoriteMovies';
+
+void main() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter<WishlistMovie>(WishlistMovieAdapter());
+  await Hive.openBox<WishlistMovie>(favoriteMovies);
   runApp(MyApp());
 }
 
@@ -28,6 +36,7 @@ class MyApp extends StatelessWidget {
           iconTheme: IconThemeData(
             color: Colors.white,
           ),
+          shadowColor: Colors.white70,
         ),
       ),
       home: MyLoginPage(),

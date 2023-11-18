@@ -87,124 +87,130 @@ class _MyLoginPageState extends State<MyLoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.grey[200],
         body: SafeArea(
-      child: SingleChildScrollView(
-        //login
-        child: Column(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              height: 300,
-              width: double.infinity,
-              child: Lottie.network(
-                  'https://lottie.host/98a56201-83c2-4528-a5b7-c3eaf44655ed/qx2PXSA8mR.json'),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30),
-              child: Column(
-                children: [
-                  TextFormField(
-                    controller: _username,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        hintText: 'Enter Username',
-                        hintStyle: TextStyle(
-                            fontFamily: GoogleFonts.poppins().fontFamily,
-                            fontSize: 14),
-                        labelText: 'Username',
-                        labelStyle: TextStyle(
-                            fontFamily: GoogleFonts.poppins().fontFamily,
-                            fontSize: 14),
-                        prefixIcon: Icon(Icons.email),
-                        contentPadding: EdgeInsets.symmetric(vertical: 15)),
-                  ),
-                  SizedBox(
-                    height: 35,
-                  ),
-                  TextFormField(
-                    controller: _password,
-                    obscureText: obsecureText,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        hintText: 'Enter Password',
-                        hintStyle: TextStyle(
-                            fontFamily: GoogleFonts.poppins().fontFamily,
-                            fontSize: 14),
-                        labelText: 'Password',
-                        labelStyle: TextStyle(
-                            fontFamily: GoogleFonts.poppins().fontFamily,
-                            fontSize: 14),
-                        prefixIcon: Icon(Icons.lock),
-                        suffixIcon: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                obsecureText = !obsecureText;
-                              });
-                            },
-                            icon: Icon(
-                              obsecureText
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                              color: Colors.grey[600],
-                            )),
-                        contentPadding: EdgeInsets.symmetric(vertical: 15)),
-                  ),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 45,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.blueAccent[700],
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                      onPressed: () {
-                        login();
-                      },
-                      child: Text(
-                        'LOGIN',
-                        style: TextStyle(
-                            fontFamily: GoogleFonts.poppins().fontFamily,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+          child: SingleChildScrollView(
+            //login
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  height: 300,
+                  width: double.infinity,
+                  child: Lottie.network(
+                      'https://lottie.host/98a56201-83c2-4528-a5b7-c3eaf44655ed/qx2PXSA8mR.json'),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30),
+                  child: Column(
                     children: [
-                      Text('Don\'t have an account?'),
-                      TextButton(
+                      TextFormField(
+                        controller: _username,
+                        decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            hintText: 'Enter Username',
+                            hintStyle: TextStyle(
+                                fontFamily: GoogleFonts.poppins().fontFamily,
+                                fontSize: 14),
+                            labelText: 'Username',
+                            labelStyle: TextStyle(
+                                fontFamily: GoogleFonts.poppins().fontFamily,
+                                fontSize: 14),
+                            prefixIcon: Icon(Icons.email),
+                            contentPadding: EdgeInsets.symmetric(vertical: 15)),
+                      ),
+                      SizedBox(
+                        height: 35,
+                      ),
+                      TextFormField(
+                        controller: _password,
+                        obscureText: obsecureText,
+                        decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            hintText: 'Enter Password',
+                            hintStyle: TextStyle(
+                                fontFamily: GoogleFonts.poppins().fontFamily,
+                                fontSize: 14),
+                            labelText: 'Password',
+                            labelStyle: TextStyle(
+                                fontFamily: GoogleFonts.poppins().fontFamily,
+                                fontSize: 14),
+                            prefixIcon: Icon(Icons.lock),
+                            suffixIcon: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    obsecureText = !obsecureText;
+                                  });
+                                },
+                                icon: Icon(
+                                  obsecureText
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                  color: Colors.grey[600],
+                                )),
+                            contentPadding: EdgeInsets.symmetric(vertical: 15)),
+                      ),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 45,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              primary: Colors.blueAccent[700],
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10))),
                           onPressed: () {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MyRegisterPage()));
+                            login();
                           },
                           child: Text(
-                            'Sign Up',
-                            style: TextStyle(color: Colors.blue),
-                          ))
+                            'LOGIN',
+                            style: TextStyle(
+                                fontFamily: GoogleFonts.poppins().fontFamily,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Don\'t have an account?'),
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            MyRegisterPage()));
+                              },
+                              child: Text(
+                                'Sign Up',
+                                style: TextStyle(color: Colors.blue),
+                              ))
+                        ],
+                      )
                     ],
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    ));
+                  ),
+                )
+              ],
+            ),
+          ),
+        ));
   }
 }

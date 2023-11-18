@@ -59,7 +59,7 @@ class _AllDiscoverMoviesState extends State<AllDiscoverMovies> {
     setState(() {
       filteredMovies = discoverMovies
           .where((movie) =>
-              movie.title?.toLowerCase().contains(query.toLowerCase()) ?? false)
+              movie.title!.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
@@ -100,88 +100,95 @@ class _AllDiscoverMoviesState extends State<AllDiscoverMovies> {
           ),
         ),
         Expanded(
-          child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 0.6,
-              crossAxisSpacing: 7,
-              mainAxisSpacing: 7,
-            ),
-            itemCount: filteredMovies.length,
-            itemBuilder: (context, index) {
-              final movie = filteredMovies[index];
+          child: filteredMovies.isEmpty
+              ? Center(
+                  child: Text(
+                    'No movies found.',
+                    style: TextStyle(fontSize: 18.0),
+                  ),
+                )
+              : GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.6,
+                    crossAxisSpacing: 7,
+                    mainAxisSpacing: 7,
+                  ),
+                  itemCount: filteredMovies.length,
+                  itemBuilder: (context, index) {
+                    final movie = filteredMovies[index];
 
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DetailsMovie(
-                        movie: movie,
-                      ),
-                    ),
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    color: Colors.grey[200],
-                    child: Column(
-                      children: [
-                        ClipRRect(
-                          child: Image.network(
-                            '${MovieConstantsRepository.imagePath}${movie.posterPath}',
-                            height: 150,
-                            width: 130,
-                            fit: BoxFit.cover,
-                            filterQuality: FilterQuality.high,
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetailsMovie(
+                              movie: movie,
+                            ),
                           ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(5.0),
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Card(
+                          color: Colors.grey[200],
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Text(
-                                  movie.title?.toString() ?? 'No Title',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
+                              ClipRRect(
+                                child: Image.network(
+                                  '${MovieConstantsRepository.imagePath}${movie.posterPath}',
+                                  height: 150,
+                                  width: 130,
+                                  fit: BoxFit.cover,
+                                  filterQuality: FilterQuality.high,
                                 ),
                               ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.yellow,
-                                  ),
-                                  SizedBox(width: 5),
-                                  Text(
-                                    movie.voteAverage?.toString() ??
-                                        'No Rating',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
+                              Container(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child: Text(
+                                        movie.title?.toString() ?? 'No Title',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.star,
+                                          color: Colors.yellow,
+                                        ),
+                                        SizedBox(width: 5),
+                                        Text(
+                                          movie.voteAverage?.toString() ??
+                                              'No Rating',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
+                      ),
+                    );
+                  },
                 ),
-              );
-            },
-          ),
         ),
       ],
     );
