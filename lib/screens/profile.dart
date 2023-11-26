@@ -2,7 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:movie_app/Database/wishlistMovie.dart';
+import 'package:movie_app/main.dart';
 import 'package:movie_app/screens/sign/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math';
@@ -37,7 +40,11 @@ class _MyProfileState extends State<MyProfile> {
     } else {
       image = await _picker.pickImage(source: ImageSource.gallery);
     }
-    return image!.path;
+    final imagePath = image!.path;
+    final box = Hive.box<WishlistMovie>(imagePicker);
+    box.add(WishlistMovie(imagePath: imagePath));
+
+    return imagePath;
   }
 
   int _getRandomNumber(int min, int max) {
@@ -49,6 +56,11 @@ class _MyProfileState extends State<MyProfile> {
   void initState() {
     super.initState();
     initial();
+    openBox();
+  }
+
+  void openBox() async {
+    await Hive.openBox<WishlistMovie>(imagePicker);
   }
 
   void initial() async {
@@ -62,9 +74,16 @@ class _MyProfileState extends State<MyProfile> {
     } else {
       print('Username is null');
     }
+
+    final box = Hive.box<WishlistMovie>(imagePicker);
+    setState(() {
+      _imagePath = box.values.map((e) => e.imagePath!).toList();
+    });
   }
 
   void _removedImage(int index) {
+    final box = Hive.box<WishlistMovie>(imagePicker);
+    box.deleteAt(index);
     setState(() {
       _imagePath.removeAt(index);
     });

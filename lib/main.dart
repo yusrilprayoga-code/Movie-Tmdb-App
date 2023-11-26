@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:movie_app/Database/wishlistMovie.dart';
-import 'package:movie_app/model/imagePickerDatabase.dart';
 import 'package:movie_app/screens/sign/login.dart';
 
 String favoriteMovies = 'favoriteMovies';
@@ -13,7 +12,7 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter<WishlistMovie>(WishlistMovieAdapter());
   await Hive.openBox<WishlistMovie>(favoriteMovies);
-  await Hive.openBox<ImagePickerDatabase>(imagePicker);
+  await Hive.openBox<WishlistMovie>(imagePicker);
   runApp(MyApp());
 }
 

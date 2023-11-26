@@ -23,14 +23,15 @@ class WishlistMovieAdapter extends TypeAdapter<WishlistMovie> {
       backdropPath: fields[3] as String?,
       voteAverage: fields[4] as String?,
       price: fields[5] as double?,
-      wishlist: fields[6] as bool,
+      imagePath: fields[7] as String?,
+      wishlist: fields[6] as bool?,
     );
   }
 
   @override
   void write(BinaryWriter writer, WishlistMovie obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
@@ -44,7 +45,9 @@ class WishlistMovieAdapter extends TypeAdapter<WishlistMovie> {
       ..writeByte(5)
       ..write(obj.price)
       ..writeByte(6)
-      ..write(obj.wishlist);
+      ..write(obj.wishlist)
+      ..writeByte(7)
+      ..write(obj.imagePath);
   }
 
   @override

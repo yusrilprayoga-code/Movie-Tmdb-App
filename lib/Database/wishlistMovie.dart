@@ -25,6 +25,9 @@ class WishlistMovie extends HiveObject {
   @HiveField(6)
   bool? wishlist;
 
+  @HiveField(7)
+  String? imagePath;
+
   WishlistMovie({
     this.title,
     this.overview,
@@ -32,6 +35,7 @@ class WishlistMovie extends HiveObject {
     this.backdropPath,
     this.voteAverage,
     this.price,
+    this.imagePath,
     this.wishlist = false,
   });
 }
