@@ -1,12 +1,9 @@
 # Movie Information App
 
 # Nama Kelompok 7: 
-## NAMA: MOH YUSRIL PRAYOGA
-## NIM : 124210006
-
-# NAMA: DAFFA ADITYA PRANUGRAHA
-# NIM : 124210021
-
+## NAMA: MOH YUSRIL PRAYOGA / DAFFA ADITYA PRANUGRAHA
+## NIM : 124210006 / 124210021
+ 
 ## PLUG : SI-A
 
 ![Screenshot 2023-11-16 203429](https://github.com/yusrilprayoga-code/Movie-Tmdb-App/assets/108702211/add17909-f613-4110-8397-53de10cbf74d)
