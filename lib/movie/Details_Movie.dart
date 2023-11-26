@@ -76,12 +76,18 @@ class _DetailsMovieState extends State<DetailsMovie> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                widget.movie.title ?? "Title not available",
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
+                              Expanded(
+                                child: Text(
+                                  widget.movie.title ?? "Title not available",
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                  overflow: TextOverflow
+                                      .ellipsis, // Add this line to handle overflow
+                                  maxLines:
+                                      1, // Add this line to limit the number of lines to 1
                                 ),
                               ),
                               InkWell(
@@ -207,7 +213,6 @@ class _DetailsMovieState extends State<DetailsMovie> {
                         ],
                       ),
                     ),
-                    // Add other details from MovieDetailPage here
                   ],
                 ),
               ),

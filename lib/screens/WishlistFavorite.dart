@@ -9,15 +9,16 @@ import 'package:movie_app/Constants/movie_constants_repository.dart';
 import 'package:movie_app/Database/wishlistMovie.dart';
 import 'package:movie_app/main.dart';
 
-enum Currency { USD, EUR, JPY }
+enum Currency { USD, EUR, JPY, IDR }
 
-enum TimeZone { WIB, WITA, WIT }
+enum TimeZone { WIB, WITA, WIT, LondonMusimPanas, LondonMusimDingin }
 
 class CurrencyConverter {
   static const Map<Currency, double> conversionRates = {
     Currency.USD: 1.0,
     Currency.EUR: 0.85,
     Currency.JPY: 110.0,
+    Currency.IDR: 15000.0,
   };
 
   static String convertPrice(double price, Currency targetCurrency) {
@@ -70,6 +71,12 @@ class _WishlistFavoriteState extends State<WishlistFavorite> {
       case TimeZone.WIT:
         formattedTime = '${now.hour + 1}:${now.minute}:${now.second}';
         break;
+      case TimeZone.LondonMusimPanas:
+        formattedTime = '${now.hour + 6}:${now.minute}:${now.second}';
+        break;
+      case TimeZone.LondonMusimDingin:
+        formattedTime = '${now.hour + 7}:${now.minute}:${now.second}';
+        break;
     }
 
     setState(() {});
@@ -86,7 +93,6 @@ class _WishlistFavoriteState extends State<WishlistFavorite> {
 
   @override
   void dispose() {
-    // Cancel the timer when the widget is disposed
     timer.cancel();
     super.dispose();
   }
@@ -196,19 +202,21 @@ class _WishlistFavoriteState extends State<WishlistFavorite> {
                                 ),
                                 const SizedBox(height: 5),
                                 Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      'Price: ${CurrencyConverter.convertPrice(
-                                        movie?.price ?? 0,
-                                        selectedCurrency,
-                                      )}',
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.green,
+                                    Expanded(
+                                      child: Text(
+                                        'Price: ${CurrencyConverter.convertPrice(
+                                          movie?.price ?? 0,
+                                          selectedCurrency,
+                                        )}',
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.green,
+                                        ),
                                       ),
                                     ),
-                                    const SizedBox(width: 5),
                                     Text(
                                       '(${selectedCurrency.toString().split('.').last})',
                                       style: const TextStyle(
@@ -216,9 +224,6 @@ class _WishlistFavoriteState extends State<WishlistFavorite> {
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black,
                                       ),
-                                    ),
-                                    SizedBox(
-                                      width: 2,
                                     ),
                                     _buildCurrencyDropdown(),
                                   ],
@@ -294,11 +299,13 @@ class _WishlistFavoriteState extends State<WishlistFavorite> {
   String _getCurrencySymbol(Currency currency) {
     switch (currency) {
       case Currency.USD:
-        return '\$'; // Dollar symbol
+        return '\$';
       case Currency.EUR:
-        return '€'; // Euro symbol
+        return '€';
       case Currency.JPY:
-        return '¥'; // Yen symbol
+        return '¥';
+      case Currency.IDR:
+        return 'Rp';
       default:
         return '';
     }
@@ -312,6 +319,10 @@ class _WishlistFavoriteState extends State<WishlistFavorite> {
         return '${time.hour + 1}:${time.minute}:${time.second} WITA';
       case TimeZone.WIT:
         return '${time.hour + 2}:${time.minute}:${time.second} WIT';
+      case TimeZone.LondonMusimPanas:
+        return '${time.hour + 6}:${time.minute}:${time.second} London';
+      case TimeZone.LondonMusimDingin:
+        return '${time.hour + 7}:${time.minute}:${time.second} London2';
       default:
         return '';
     }

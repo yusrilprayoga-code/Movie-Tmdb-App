@@ -33,7 +33,8 @@ class DiscoverMovies extends StatelessWidget {
             child: Container(
               width: 360,
               child: Card(
-                color: Colors.white, // Set background color to gray
+                elevation: 3,
+                color: Colors.grey[300], // Set background color to gray
                 child: Row(
                   children: [
                     ClipRRect(

@@ -64,31 +64,48 @@ class _MyProfileState extends State<MyProfile> {
     }
   }
 
+  void _removedImage(int index) {
+    setState(() {
+      _imagePath.removeAt(index);
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Remove Post Success'),
+        backgroundColor: Colors.red,
+      ),
+    );
+  }
+
   Widget _buildImageRow(int start, int end) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: List.generate(end - start + 1, (index) {
-          return Container(
-            width: 100.0,
-            height: 100.0,
-            margin: EdgeInsets.symmetric(horizontal: 4.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 1,
-                  blurRadius: 2,
-                  offset: Offset(0, 1),
-                ),
-              ],
-            ),
-            child: Image.file(
-              File(_imagePath[index]),
-              fit: BoxFit.cover,
-              filterQuality: FilterQuality.high,
+          return GestureDetector(
+            onLongPress: () {
+              _removedImage(index);
+            },
+            child: Container(
+              width: 100.0,
+              height: 100.0,
+              margin: EdgeInsets.symmetric(horizontal: 4.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 1,
+                    blurRadius: 2,
+                    offset: Offset(0, 1),
+                  ),
+                ],
+              ),
+              child: Image.file(
+                File(_imagePath[index]),
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.high,
+              ),
             ),
           );
         }),
@@ -117,8 +134,7 @@ class _MyProfileState extends State<MyProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.grey[200],
-        body: // make clone profile instagram
-            SingleChildScrollView(
+        body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -139,38 +155,83 @@ class _MyProfileState extends State<MyProfile> {
                                 image: AssetImage(
                                   "assets/images/logo.png",
                                 ),
-                                fit: BoxFit.cover,
                                 filterQuality: FilterQuality.high,
                               ),
                             ),
                           ),
                           SizedBox(width: 16.0),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                username ?? '',
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold,
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  username ?? '',
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                "124210006",
-                                style: TextStyle(
-                                  fontSize: 12.0,
+                                Text(
+                                  "124210006 & 124210021",
+                                  style: TextStyle(
+                                    fontSize: 12.0,
+                                  ),
                                 ),
-                              ),
-                              //description
-                              Text(
-                                "Pemrograman Mobile Mudah dan Menyenangkan",
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.bold,
+                                //description
+                                Text(
+                                  "Pemrograman Mobile Mudah dan Menyenangkan",
+                                  style: TextStyle(
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
+                          IconButton(
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('Logout'),
+                                    content:
+                                        Text('Are you sure want to logout?'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Text('Cancel'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          loginData.setBool('login', true);
+                                          Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  MyLoginPage(),
+                                            ),
+                                          );
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text('Logout Success'),
+                                              backgroundColor: Colors.red,
+                                            ),
+                                          );
+                                        },
+                                        child: Text('Logout',
+                                            style:
+                                                TextStyle(color: Colors.red)),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            icon: Icon(Icons.logout),
+                          )
                         ],
                       ),
                       SizedBox(height: 16.0),
@@ -183,7 +244,7 @@ class _MyProfileState extends State<MyProfile> {
                             Column(
                               children: [
                                 Text(
-                                  "6",
+                                  _imagePath.length.toString(),
                                   style: TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold,
@@ -298,7 +359,7 @@ class _MyProfileState extends State<MyProfile> {
                         ],
                       ),
                       SizedBox(height: 16.0),
-                      Divider(),
+                      Divider(color: Colors.grey),
                       SizedBox(
                         height: 10,
                       ),
@@ -306,107 +367,68 @@ class _MyProfileState extends State<MyProfile> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [_buildImageGrid()],
                       ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Divider(color: Colors.grey),
                     ],
                   ),
                 ),
-                SizedBox(height: 16.0),
-                Divider(),
-                SizedBox(height: 16.0),
+                SizedBox(height: 20.0),
                 Column(
                   children: [
-                    OutlinedButton(
-                      onPressed: () async {
-                        String imagePath = await getImage(true);
-                        setState(() {
-                          _imagePath.add(imagePath);
-                        });
-                      },
-                      child: Text(
-                        "Add New Post",
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
+                    Container(
+                      width: double.infinity,
+                      child: OutlinedButton(
+                        onPressed: () async {
+                          String imagePath = await getImage(true);
+                          setState(() {
+                            _imagePath.add(imagePath);
+                          });
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Add New Post Success'),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
+                        },
+                        child: Text(
+                          "Add New Post",
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
                     SizedBox(
                       height: 10,
                     ),
-                    OutlinedButton(
-                      onPressed: () async {
-                        String imagePath = await getImage(false);
-                        setState(() {
-                          _imagePath.add(imagePath);
-                        });
-                      },
-                      child: Text(
-                        "Get from Gallery",
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
+                    Container(
+                      width: double.infinity,
+                      child: OutlinedButton(
+                        onPressed: () async {
+                          String imagePath = await getImage(false);
+                          setState(() {
+                            _imagePath.add(imagePath);
+                          });
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Add New Post Success'),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
+                        },
+                        child: Text(
+                          "Get from Gallery",
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
                   ],
-                ),
-                //button logout
-                SizedBox(height: 35.0),
-                //outlinebutton
-                OutlinedButton(
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
-                    backgroundColor: MaterialStateProperty.all(Colors.red),
-                    foregroundColor: MaterialStateProperty.all(Colors.white),
-                  ),
-                  onPressed: () {
-                    //make alert apakah anda yakin ingin logout
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('Logout'),
-                          content: Text('Are you sure want to logout?'),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text('Cancel'),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                loginData.setBool('login', true);
-                                Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        MyLoginPage(),
-                                  ),
-                                );
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text('Logout Success'),
-                                    backgroundColor: Colors.red,
-                                  ),
-                                );
-                              },
-                              child: Text('Logout'),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                  child: Text(
-                    "Logout",
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
                 ),
               ],
             ),

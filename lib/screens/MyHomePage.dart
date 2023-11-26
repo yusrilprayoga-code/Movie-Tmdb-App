@@ -11,6 +11,7 @@ import 'package:movie_app/movie/Trending_Movies.dart';
 import 'package:movie_app/movie/UpComingMovies.dart';
 import 'package:movie_app/screens/WishlistFavorite.dart';
 import 'package:movie_app/screens/profile.dart';
+import 'package:movie_app/screens/saranKesan.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'content/discover_movies_content.dart';
@@ -109,6 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             buildAllMovies(),
             WishlistFavorite(),
+            SaranKesan(),
             MyProfile(),
           ],
           onPageChanged: (int index) {
@@ -118,7 +120,6 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ),
       ),
-      //curved navigation bar
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Color(Colors.grey[200]!.value),
         color: Color.fromARGB(255, 88, 221, 192),
@@ -127,6 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
         items: <Widget>[
           Icon(Icons.movie_creation_outlined, size: 20, color: Colors.white),
           Icon(Icons.bookmark, size: 20, color: Colors.white),
+          Icon(Icons.add_reaction, size: 20, color: Colors.white),
           Icon(Icons.person, size: 20, color: Colors.white),
         ],
         index: _selectedIndex,
