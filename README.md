@@ -1,6 +1,6 @@
 # Movie Information App
 
-# Nama Kelompok 7: 
+#  Kelompok 7: 
 ## NAMA: MOH YUSRIL PRAYOGA / DAFFA ADITYA PRANUGRAHA
 ## NIM : 124210006 / 124210021
  
