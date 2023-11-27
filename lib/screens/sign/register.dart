@@ -23,7 +23,6 @@ class _MyRegisterPageState extends State<MyRegisterPage> {
     if (_username.text.isEmpty ||
         _password.text.isEmpty ||
         _confirmPassword.text.isEmpty) {
-      // Check if any of the fields is empty
       showDialog(
         context: context,
         builder: (context) {
@@ -45,7 +44,6 @@ class _MyRegisterPageState extends State<MyRegisterPage> {
     }
 
     if (_password.text != _confirmPassword.text) {
-      // Check if password and confirm password match
       showDialog(
         context: context,
         builder: (context) {
@@ -276,14 +274,39 @@ class _MyRegisterPageState extends State<MyRegisterPage> {
                       ),
                     ),
                     onPressed: () {
-                      register();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Account created successfully'),
-                          backgroundColor: Colors.green,
-                          duration: Duration(seconds: 2),
-                        ),
-                      );
+                      if (_username.text.isEmpty ||
+                          _password.text.isEmpty ||
+                          _confirmPassword.text.isEmpty) {
+                        register();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Please fill all the fields'),
+                            backgroundColor: Colors.red,
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      } else if (_password.text != _confirmPassword.text) {
+                        register();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                                'Password and Confirm Password do not match'),
+                            backgroundColor: Colors.red,
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                        _password.clear();
+                        _confirmPassword.clear();
+                      } else {
+                        register();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Account created successfully'),
+                            backgroundColor: Colors.green,
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      }
                       _username.clear();
                       _password.clear();
                       _confirmPassword.clear();
