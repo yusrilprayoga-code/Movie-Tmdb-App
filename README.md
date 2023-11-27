@@ -1,10 +1,12 @@
 # Movie Information App
 
-# Nama Kelompok 7: 
-## NAMA: MOH YUSRIL PRAYOGA / DAFFA ADITYA PRANUGRAHA
-## NIM : 124210006 / 124210021
+#  Group 7 
+## NAMA TIM : MOH YUSRIL PRAYOGA / DAFFA ADITYA PRANUGRAHA
+## NIM TIM  : 124210006 / 124210021
  
 ## PLUG : SI-A
+
+### APP PURPOSE : Aplikasi mobile informatif yang menampilkan informasi film dengan dukungan API yang memungkinkan aplikasi untuk menampilkan informasi film secara up-to-date
 
 ![Screenshot 2023-11-16 203429](https://github.com/yusrilprayoga-code/Movie-Tmdb-App/assets/108702211/add17909-f613-4110-8397-53de10cbf74d)
 ![Screenshot 2023-11-16 203619](https://github.com/yusrilprayoga-code/Movie-Tmdb-App/assets/108702211/95efba88-b4fb-48eb-bd03-1e2413837913)
